@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { auth, db } from '../firebase/config'
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
