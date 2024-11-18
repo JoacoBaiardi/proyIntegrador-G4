@@ -14,13 +14,13 @@ export default class Register extends Component {
     }
   }
 
-//   componentDidMount(){
-//     auth.onAuthStateChanged(user => {
-//       if(user){
-//         this.props.navigation.navigate("HomeMenu")
-//       }
-//     })
-//   }
+  componentDidMount(){
+    auth.onAuthStateChanged(user => {
+      if(user){
+        this.props.navigation.navigate("HomeMenu")
+      }
+    })
+  }
 
   onSubmit = () => {
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -32,7 +32,7 @@ export default class Register extends Component {
           createdAt: Date.now()
         })
       )
-    //   .then(() => this.props.navigation.navigate('Login'))
+      .then(() => this.props.navigation.navigate('Login'))
       .catch(error => { this.setState({ error: error.message }) })
   }
 
