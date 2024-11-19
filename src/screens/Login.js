@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import { auth, db } from "../firebase/config";
+import { auth } from "../firebase/config";
 
 export default class Login extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ export default class Login extends Component {
         console.log("password :", this.state.password)
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(response => {this.setState({logedIn: true})})
-        .then( ()=> this.props.navigation.navigate("HomeMenu"))
+        .then( ()=> {this.props.navigation.navigate("HomeMenu")})
         .catch(error => {this.setState({error:"Fallo el login"})})
     }
     componentDidMount(){

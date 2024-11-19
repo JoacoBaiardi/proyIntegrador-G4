@@ -32,8 +32,8 @@ export default class Register extends Component {
           createdAt: Date.now()
         })
       )
-      .then(() => this.props.navigation.navigate('Login'))
-      .catch(error => { this.setState({ error: error.message }) })
+      .then(() => {this.props.navigation.navigate('Login')})
+      .catch(error => { this.setState({ error: "Fallo el registro" }) })
   }
 
   render() {
@@ -70,7 +70,7 @@ export default class Register extends Component {
         <TouchableOpacity onPress={() => this.onSubmit()} style={styles.button}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
-<br />
+        <br />
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.button2}>
           <Text style={styles.buttonText}>Ya tengo cuenta</Text>
         </TouchableOpacity>
