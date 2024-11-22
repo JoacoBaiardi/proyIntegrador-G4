@@ -9,31 +9,35 @@ export default class Register extends Component {
       email: "",
       username: "",
       password: "",
-      registered: "",
+      isRegistering: false,
       error: false
     }
   }
 
-  componentDidMount(){
-    auth.onAuthStateChanged(user => {
-      if(user){
-        this.props.navigation.navigate("HomeMenu")
-      }
-    })
-  }
-
   onSubmit = () => {
+    this.setState({ isRegistering: true })
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(response =>  
-        this.setState({ registered: true }) ,
         db.collection("users").add({
           email: this.state.email,
           username: this.state.username,
+          password: this.state.password,
           createdAt: Date.now()
         })
       )
-      .then(() => {this.props.navigation.navigate('Login')})
+      .then(() => {
+        this.setState({ isRegistering: false })
+        auth.signOut()
+        this.props.navigation.navigate('Login')})
       .catch(error => { this.setState({ error: "Fallo el registro" }) })
+  }
+
+componentDidMount(){
+    auth.onAuthStateChanged(user => {
+      if(user && !this.state.isRegistering){
+        this.props.navigation.navigate("HomeMenu")
+      }
+    })
   }
 
   render() {
