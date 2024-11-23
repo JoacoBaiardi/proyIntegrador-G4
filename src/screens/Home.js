@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native-web';
-import { auth } from '../firebase/config';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native-web';
+import { auth, db } from '../firebase/config';
+import Post from '../components/Post';
 
 export default class Home extends Component {
   constructor(props) {
@@ -10,6 +11,24 @@ export default class Home extends Component {
       loading: true,
     };
   }
+
+  componentDidMount(){
+    db.collection("posts").onSnapshot(
+      docs => {
+        let posts = []
+        docs.forEach((doc) => {
+          posts.push({
+            id: doc.id,
+            data: doc.data()
+          })
+        })
+        this.setState({
+          posts: posts
+        })
+      }
+    )
+  }
+
 
   handleLogout = () => {
     auth.signOut()
@@ -23,10 +42,16 @@ export default class Home extends Component {
     return (
       <View>
         <Text>Bienvenido</Text>
-
         <TouchableOpacity onPress={() => this.handleLogout()}>
           <Text>Logout</Text>
         </TouchableOpacity>
+        <FlatList
+        data={this.state.posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => (
+          <Post item = {item} />
+        )}
+         />
       </View>
     );
   }

@@ -15,7 +15,7 @@ class Post extends Component {
 
     like(){
         db.collection("posts").doc(this.props.item.id).update({
-            likes: firebase.firestone.FieldValue.arrayUnion(auth.currentUser.email)
+            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
         })
         .then(() => {
             this.setState({
@@ -27,7 +27,7 @@ class Post extends Component {
 
     unLike(){
         db.collection("posts").doc(this.props.item.id).update({
-            likes: firebase.firestone.FieldValue.arrayRemove(auth.currentUser.email)
+            likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
         .then(() => {
             this.setState({
@@ -51,7 +51,7 @@ class Post extends Component {
             <View>
                 <Text>Post creado por: {this.props.item.data.email}</Text>
                 <Text>{this.props.item.data.post}</Text>
-                <Text>likes: {this.state.likes}</Text><br />
+                <Text>likes: {this.state.cantLikes}</Text>
                 {this.state.likedPost ? (
                     <TouchableOpacity onPress={() => this.unLike()}>
                         <Text>unlike</Text>
