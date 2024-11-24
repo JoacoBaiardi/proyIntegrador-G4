@@ -2,6 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import NewPost from "../screens/NewPost"
+import Profile from '../screens/Profile';
+
 const Tab = createBottomTabNavigator();
 
 export default function HomeMenu() {
@@ -9,6 +11,7 @@ export default function HomeMenu() {
     <Tab.Navigator screenOptions={{ headerShown: false }}> 
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="New Post" component={NewPost} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }

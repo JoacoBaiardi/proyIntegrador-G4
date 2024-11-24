@@ -54,11 +54,11 @@ class Post extends Component {
                 <Text>likes: {this.state.cantLikes}</Text>
                 {this.state.likedPost ? (
                     <TouchableOpacity onPress={() => this.unLike()}>
-                        <Text>unlike</Text>
+                        <Text>Unlike</Text>
                     </TouchableOpacity >
                 ) : (
                     <TouchableOpacity onPress={() => this.like()} >
-                        <Text>like</Text>
+                        <Text>Like</Text>
                     </TouchableOpacity >
                 )}
             </View>
