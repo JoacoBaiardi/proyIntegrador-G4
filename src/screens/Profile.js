@@ -88,7 +88,7 @@ export default class Profile extends Component {
             </View>
         )}
     />
-    <Text style={styles.header}>Posteos:</Text>
+    <Text style={styles.header}>Posteos: {posts.length} </Text>
     <FlatList
         style={styles.flatList}
         data={posts}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         color: "#333",
     },
     logoutboton: {
-        backgroundColor: "red",
+        backgroundColor: "#ff5252",
         padding: 10,
         borderRadius: 5,
         alignItems: "center",

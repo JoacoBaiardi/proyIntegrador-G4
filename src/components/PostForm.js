@@ -48,8 +48,10 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 24,
-      marginBottom: 20,
-      textAlign: 'center',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#333',
     },
     input: {
       height: 50,
