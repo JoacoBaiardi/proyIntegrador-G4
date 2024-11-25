@@ -72,36 +72,122 @@ export default class Profile extends Component {
     render() {
         const { usuario, loading, posts } = this.state;
         return (
-            <View>
-                <Text>Perfil</Text>
-                <TouchableOpacity onPress={() => this.handleLogOut()}>
-                    <Text>Logout</Text>
-                </TouchableOpacity>
-                <FlatList
-                    data={usuario}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <View>
-                            <Text>Email {item.data.email}</Text>
-                            <Text>Nombre de usuario: {item.data.username}</Text>
-                        </View>
-                    )}
-                />
-                <Text>Posteos:</Text>
-                <FlatList
-                    data={posts}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <View>
-                            <Text>{item.data.post}</Text>
-                            <Text>Likes: {item.data.likes.length}</Text>
-                            <TouchableOpacity onPress={() => this.handleBorrar(item.id)}>
-                                <Text>Borrar Post</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+            <View style={styles.container}>
+    <Text style={styles.header}>Perfil</Text>
+    <TouchableOpacity style={styles.logoutboton} onPress={() => this.handleLogOut()}>
+        <Text style={styles.logout}>Logout</Text>
+    </TouchableOpacity>
+    <FlatList
+        style={styles.flatList}
+        data={usuario}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+            <View style={styles.infousuarios}>
+                <Text style={styles.Info}>Email: {item.data.email}</Text>
+                <Text style={styles.Info}>Nombre de usuario: {item.data.username}</Text>
             </View>
+        )}
+    />
+    <Text style={styles.header}>Posteos:</Text>
+    <FlatList
+        style={styles.flatList}
+        data={posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+            <View style={styles.post}>
+                <Text style={styles.postinfo}>{item.data.post}</Text>
+                <Text style={styles.likeinfot}>Likes: {item.data.likes.length}</Text>
+                <TouchableOpacity
+                    style={styles.Borrar}
+                    onPress={() => this.handleBorrar(item.id)}
+                >
+                    <Text style={styles.BorrarBoton}>Borrar Post</Text>
+                </TouchableOpacity>
+            </View>
+        )}
+    />
+</View>
+
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: "#f5f5f5",
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 16,
+        textAlign: "center",
+        color: "#333",
+    },
+    logoutBoton: {
+        backgroundColor: "#ff5252",
+        padding: 10,
+        borderRadius: 5,
+        alignItems: "center",
+        marginVertical: 10,
+    },
+    logout: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    infousuarios: {
+        marginBottom: 20,
+        backgroundColor: "#fff",
+        padding: 10,
+        borderRadius: 5,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    Info: {
+        fontSize: 16,
+        marginBottom: 5,
+        color: "#555",
+    },
+    post: {
+        marginBottom: 10,
+        backgroundColor: "#fff",
+        padding: 10,
+        borderRadius: 5,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    postinfo: {
+        fontSize: 16,
+        marginBottom: 5,
+        color: "#333",
+    },
+    likeinfo: {
+        fontSize: 14,
+        marginBottom: 5,
+        color: "#777",
+    },
+    Borrar: {
+        backgroundColor: "#ff5252",
+        padding: 8,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 5,
+    },
+    BorrarBoton: {
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: "bold",
+    },
+    flatList: {
+        marginBottom: 20,
+    },
+});
+
