@@ -12,7 +12,7 @@ export default class Home extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     db.collection("posts").onSnapshot(
       docs => {
         let posts = []
@@ -46,13 +46,13 @@ export default class Home extends Component {
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
         <FlatList
-        style = {styles.flatList}
-        data={this.state.posts}
-        keyExtractor={(item) => item.id}
-        renderItem={({item}) => (
-          <Post item = {item} />
-        )}
-         />
+          style={styles.flatList}
+          data={this.state.posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Post item={item} />
+          )}
+        />
       </View>
     );
   }
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
   },
   flatList: {
     paddingBottom: 20,
-    alignSelf:'center'
+    alignSelf: 'center'
   },
 });

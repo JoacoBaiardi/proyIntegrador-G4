@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 export default function HomeMenu() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}> 
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="New Post" component={NewPost} />
       <Tab.Screen name="Search" component={Search} />

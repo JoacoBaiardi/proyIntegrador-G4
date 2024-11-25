@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { auth, db } from "../firebase/config";
 import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import 'firebase/firestore';
 
 export default class Profile extends Component {
     constructor() {
@@ -52,14 +52,12 @@ export default class Profile extends Component {
     handleBorrar = (postId) => {
         db.collection("posts")
             .doc(postId)
-            .delete({
-                posts: firebase.firestore.FieldValue.arrayRemove(postId)
+            .delete()
+            .then(() => {
+                console.log("Post eliminado")
             })
-            .then(()=>{
-                this.setState({
-                    posts: posts,
-                    loading: false,
-                })
+            .catch((error) => {
+                console.log(error)
             })
     };
 
@@ -73,40 +71,40 @@ export default class Profile extends Component {
         const { usuario, loading, posts } = this.state;
         return (
             <View style={styles.container}>
-    <Text style={styles.header}>Perfil</Text>
-    <TouchableOpacity style={styles.logoutboton} onPress={() => this.handleLogOut()}>
-        <Text style={styles.logout}>Logout</Text>
-    </TouchableOpacity>
-    <FlatList
-        style={styles.flatList}
-        data={usuario}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-            <View style={styles.infousuarios}>
-                <Text style={styles.Info}>Email: {item.data.email}</Text>
-                <Text style={styles.Info}>Nombre de usuario: {item.data.username}</Text>
-            </View>
-        )}
-    />
-    <Text style={styles.header}>Posteos:</Text>
-    <FlatList
-        style={styles.flatList}
-        data={posts}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-            <View style={styles.post}>
-                <Text style={styles.postinfo}>{item.data.post}</Text>
-                <Text style={styles.likeinfot}>Likes: {item.data.likes.length}</Text>
-                <TouchableOpacity
-                    style={styles.Borrar}
-                    onPress={() => this.handleBorrar(item.id)}
-                >
-                    <Text style={styles.BorrarBoton}>Borrar Post</Text>
+                <Text style={styles.header}>Perfil</Text>
+                <TouchableOpacity style={styles.logoutboton} onPress={() => this.handleLogOut()}>
+                    <Text style={styles.logout}>Logout</Text>
                 </TouchableOpacity>
+                <FlatList
+                    style={styles.flatList}
+                    data={usuario}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.infousuarios}>
+                            <Text style={styles.Info}>Email: {item.data.email}</Text>
+                            <Text style={styles.Info}>UserName: {item.data.username}</Text>
+                        </View>
+                    )}
+                />
+                <Text style={styles.header}>Tus Posteos:</Text>
+                <FlatList
+                    style={styles.flatList}
+                    data={posts}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.post}>
+                            <Text style={styles.postinfo}>{item.data.post}</Text>
+                            <Text style={styles.likeinfot}>Likes: {item.data.likes.length}</Text>
+                            <TouchableOpacity
+                                style={styles.Borrar}
+                                onPress={() => this.handleBorrar(item.id)}
+                            >
+                                <Text style={styles.BorrarBoton}>Borrar Post</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                />
             </View>
-        )}
-    />
-</View>
 
         );
     }
