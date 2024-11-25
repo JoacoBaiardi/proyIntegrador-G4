@@ -3,10 +3,10 @@ import { View } from 'react-native-web';
 import PostForm from "../components/PostForm"
 
 
-export default function NewPost(props){
-    return(
+export default function NewPost({ navigation }) {
+    return (
         <View>
-            <PostForm />
+            <PostForm navigation={navigation} />
         </View>
-    )
+    );
 }

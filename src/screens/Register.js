@@ -16,10 +16,10 @@ export default class Register extends Component {
     }
   }
 
-  // validarDatos = () => {
-  //   const { email, username, password} = this.state
-  //   return email.length > 0 && username.length > 0 && password.length > 0
-  // } 
+  validarDatos = () => {
+    const { email, username, password} = this.state
+    return email.length > 0 && username.length > 0 && password.length > 0
+  } 
 
   onSubmit = () => {
     this.setState({ isRegistering: true, error:'', emailError: '', passwordError:'' })
@@ -56,7 +56,7 @@ componentDidMount(){
   }
 
   render() {
-    // const datosValidos = this.validarDatos()
+    const datosValidos = this.validarDatos()
 
     return (
       <View style={styles.container}>
@@ -94,9 +94,9 @@ componentDidMount(){
 
         <TouchableOpacity onPress={() => this.onSubmit()}
          style={[styles.button, 
-          // { backgroundColor: datosValidos ? '#28a745' : '#CCCCCC' }
+          { backgroundColor: datosValidos ? '#28a745' : '#CCCCCC' }
         ]} 
-        //  disabled={!datosValidos}
+         disabled={!datosValidos}
          >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
