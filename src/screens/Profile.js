@@ -125,15 +125,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#333",
     },
-    logoutBoton: {
-        backgroundColor: "#ff5252",
+    logoutboton: {
+        backgroundColor: "red",
         padding: 10,
         borderRadius: 5,
         alignItems: "center",
         marginVertical: 10,
     },
     logout: {
-        color: "#fff",
+        color: "white",
         fontSize: 16,
         fontWeight: "bold",
     },
