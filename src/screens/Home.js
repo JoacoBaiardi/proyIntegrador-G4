@@ -22,13 +22,13 @@ export default class Home extends Component {
             data: doc.data()
           })
         })
+        posts.sort((a, b) => b.data.createdAt - a.data.createdAt)
         this.setState({
           posts: posts
         })
       }
     )
   }
-
 
   handleLogout = () => {
     auth.signOut()

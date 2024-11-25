@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { auth, db } from "../firebase/config";
+import firebase from 'firebase/app';
+import 'firebase/firestore'; 
 
 export default class Profile extends Component {
     constructor() {
@@ -40,12 +42,26 @@ export default class Profile extends Component {
                         data: doc.data(),
                     });
                 });
+                posts.sort((a, b) => b.data.createdAt - a.data.createdAt)
                 this.setState({
                     posts: posts,
                     loading: false,
                 });
             });
     }
+    handleBorrar = (postId) => {
+        db.collection("posts")
+            .doc(postId)
+            .update({
+                posts: firebase.firestore.FieldValue.arrayRemove(postId)
+            })
+            .then(()=>{
+                this.setState({
+                    posts: posts,
+                    loading: false,
+                })
+            })
+    };
 
     handleLogOut() {
         auth.signOut().then(() => {
@@ -64,23 +80,27 @@ export default class Profile extends Component {
                 <FlatList
                     data={usuario}
                     keyExtractor={(item) => item.id}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                         <View>
                             <Text>Email {item.data.email}</Text>
                             <Text>Nombre de usuario: {item.data.username}</Text>
                         </View>
                     )}
                 />
-                 <FlatList
-          data={posts}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View>
-              <Text>Posteos: {item.data.post}</Text>
-              <Text>Likes: {item.data.likes.length}</Text>
-            </View>
-          )}
-        />
+                <Text>Posteos:</Text>
+                <FlatList
+                    data={posts}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View>
+                            <Text>{item.data.post}</Text>
+                            <Text>Likes: {item.data.likes.length}</Text>
+                            <TouchableOpacity onPress={() => this.handleBorrar(item.id)}>
+                                <Text>Borrar Post</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                />
             </View>
         );
     }
