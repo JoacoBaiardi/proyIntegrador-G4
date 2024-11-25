@@ -80,7 +80,7 @@ export default class Profile extends Component {
             </View>
         )}
     />
-    <Text style={styles.header}>Posteos:</Text>
+    <Text style={styles.header}>Posteos: {posts.length}</Text>
     <FlatList
         style={styles.flatList}
         data={posts}
