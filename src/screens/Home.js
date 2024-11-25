@@ -12,7 +12,7 @@ export default class Home extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     db.collection("posts").onSnapshot(
       docs => {
         let posts = []
@@ -30,29 +30,18 @@ export default class Home extends Component {
     )
   }
 
-  handleLogout = () => {
-    auth.signOut()
-      .then(() => {
-        this.props.navigation.navigate('Register');
-      })
-      .catch((error) => console.log(error));
-  };
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Bienvenido</Text>
-        <TouchableOpacity style={styles.logoutButton} onPress={() => this.handleLogout()}>
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
         <FlatList
-        style = {styles.flatList}
-        data={this.state.posts}
-        keyExtractor={(item) => item.id}
-        renderItem={({item}) => (
-          <Post item = {item} />
-        )}
-         />
+          style={styles.flatList}
+          data={this.state.posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Post item={item} />
+          )}
+        />
       </View>
     );
   }
@@ -71,21 +60,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#333',
   },
-  logoutButton: {
-    alignSelf: 'center',
-    backgroundColor: '#ff5252',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  logoutText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
   flatList: {
     paddingBottom: 20,
-    alignSelf:'center'
+    alignSelf: 'center'
   },
 });

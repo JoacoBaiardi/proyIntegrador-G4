@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { auth, db } from "../firebase/config";
-import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import 'firebase/firestore';
 
 export default class Profile extends Component {
     constructor() {
@@ -52,22 +51,15 @@ export default class Profile extends Component {
     handleBorrar = (postId) => {
         db.collection("posts")
             .doc(postId)
-            .delete({
-                posts: firebase.firestore.FieldValue.arrayRemove(postId)
-            })
-            .then(()=>{
-                this.setState({
-                    posts: posts,
-                    loading: false,
-                })
-            })
+            .delete()
     };
 
-    handleLogOut() {
-        auth.signOut().then(() => {
-            this.props.navigation.navigate("Login");
-        });
-    }
+    handleLogOut = () => {
+        auth.signOut()
+          .then(() => {
+            this.props.navigation.navigate('Login');
+          })
+      };
 
     render() {
         const { usuario, loading, posts } = this.state;
@@ -88,7 +80,7 @@ export default class Profile extends Component {
             </View>
         )}
     />
-    <Text style={styles.header}>Posteos: {posts.length} </Text>
+    <Text style={styles.header}>Posteos:</Text>
     <FlatList
         style={styles.flatList}
         data={posts}
@@ -114,9 +106,10 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 16,
         backgroundColor: "#f5f5f5",
+        alignSelf:'center',
+        width: 408
     },
     header: {
         fontSize: 24,

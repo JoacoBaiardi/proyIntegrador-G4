@@ -17,14 +17,14 @@ export default class Register extends Component {
   }
 
   validarDatos = () => {
-    const { email, username, password} = this.state
+    const { email, username, password } = this.state
     return email.length > 0 && username.length > 0 && password.length > 0
-  } 
+  }
 
   onSubmit = () => {
-    this.setState({ isRegistering: true, error:'', emailError: '', passwordError:'' })
+    this.setState({ isRegistering: true, error: '', emailError: '', passwordError: '' })
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(response =>  
+      .then(response =>
         db.collection("users").add({
           email: this.state.email,
           username: this.state.username,
@@ -35,21 +35,23 @@ export default class Register extends Component {
       .then(() => {
         this.setState({ isRegistering: false })
         auth.signOut()
-        this.props.navigation.navigate('Login')})
-      .catch(error => { 
+        this.props.navigation.navigate('Login')
+      })
+      .catch(error => {
         let emailError = ''
         let passwordError = ''
-        if (error.code.includes("email")){
+        if (error.code.includes("email")) {
           emailError = error.message
-        } else if (error.code.includes('password')){
+        } else if (error.code.includes('password')) {
           passwordError = error.message
         }
-        this.setState({ error: "Fallo el registro" , emailError,passwordError, isRegitering:false}) })
+        this.setState({ error: "Fallo el registro", emailError, passwordError, isRegitering: false })
+      })
   }
 
-componentDidMount(){
+  componentDidMount() {
     auth.onAuthStateChanged(user => {
-      if(user && !this.state.isRegistering){
+      if (user && !this.state.isRegistering) {
         this.props.navigation.navigate("HomeMenu")
       }
     })
@@ -69,7 +71,7 @@ componentDidMount(){
           value={this.state.email}
           style={styles.input}
         />
-        {this.state.emailError ? <Text style= {styles.errorMessage}>{this.state.emailError}</Text> : null}
+        {this.state.emailError ? <Text style={styles.errorMessage}>{this.state.emailError}</Text> : null}
         {this.state.email === '' && <Text style={styles.errorText}>Campo obligatorio</Text>}
 
         <TextInput
@@ -89,15 +91,15 @@ componentDidMount(){
           value={this.state.password}
           style={styles.input}
         />
-        {this.state.passwordError ? <Text style= {styles.errorMessage}>{this.state.passwordError}</Text> : null}
+        {this.state.passwordError ? <Text style={styles.errorMessage}>{this.state.passwordError}</Text> : null}
         {this.state.password === '' && <Text style={styles.errorText}>Campo obligatorio</Text>}
 
         <TouchableOpacity onPress={() => this.onSubmit()}
-         style={[styles.button, 
+          style={[styles.button,
           { backgroundColor: datosValidos ? '#28a745' : '#CCCCCC' }
-        ]} 
-         disabled={!datosValidos}
-         >
+          ]}
+          disabled={!datosValidos}
+        >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <br />
