@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View } from "react-native"
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native"
 import { auth, db } from '../firebase/config'
-import { TouchableOpacity } from 'react-native';
 import firebase from "firebase"
 
 class Post extends Component {
@@ -48,7 +47,7 @@ class Post extends Component {
 
     render(){
         return(
-            <View>
+            <View style={styles.container}>
                 <Text>Post creado por: {this.props.item.data.email}</Text>
                 <Text>{this.props.item.data.post}</Text>
                 <Text>likes: {this.state.cantLikes}</Text>
@@ -66,4 +65,9 @@ class Post extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 10,
+      },
+})
 export default Post

@@ -52,7 +52,7 @@ export default class Profile extends Component {
     handleBorrar = (postId) => {
         db.collection("posts")
             .doc(postId)
-            .update({
+            .delete({
                 posts: firebase.firestore.FieldValue.arrayRemove(postId)
             })
             .then(()=>{

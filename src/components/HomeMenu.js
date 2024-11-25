@@ -12,9 +12,8 @@ export default function HomeMenu() {
     <Tab.Navigator screenOptions={{ headerShown: false }}> 
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="New Post" component={NewPost} />
-      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Search" component={Search} />
-
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native-web';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native-web';
 import { auth, db } from '../firebase/config';
 import Post from '../components/Post';
 
@@ -40,12 +40,13 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Bienvenido</Text>
-        <TouchableOpacity onPress={() => this.handleLogout()}>
-          <Text>Logout</Text>
+      <View style={styles.container}>
+        <Text style={styles.header}>Bienvenido</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={() => this.handleLogout()}>
+          <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
         <FlatList
+        style = {styles.flatList}
         data={this.state.posts}
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (
@@ -56,3 +57,35 @@ export default class Home extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#333',
+  },
+  logoutButton: {
+    alignSelf: 'center',
+    backgroundColor: '#ff5252',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  logoutText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  flatList: {
+    paddingBottom: 20,
+    alignSelf:'center'
+  },
+});
