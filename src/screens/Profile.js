@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { auth, db } from "../firebase/config";
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 export default class Profile extends Component {
@@ -53,19 +52,14 @@ export default class Profile extends Component {
         db.collection("posts")
             .doc(postId)
             .delete()
-            .then(() => {
-                console.log("Post eliminado")
-            })
-            .catch((error) => {
-                console.log(error)
-            })
     };
 
-    handleLogOut() {
-        auth.signOut().then(() => {
-            this.props.navigation.navigate("Login");
-        });
-    }
+    handleLogOut = () => {
+        auth.signOut()
+          .then(() => {
+            this.props.navigation.navigate('Login');
+          })
+      };
 
     render() {
         const { usuario, loading, posts } = this.state;
@@ -82,7 +76,7 @@ export default class Profile extends Component {
                     renderItem={({ item }) => (
                         <View style={styles.infousuarios}>
                             <Text style={styles.Info}>Email: {item.data.email}</Text>
-                            <Text style={styles.Info}>UserName: {item.data.username}</Text>
+                            <Text style={styles.Info}>Usuario: {item.data.username}</Text>
                         </View>
                     )}
                 />
@@ -112,9 +106,10 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 16,
         backgroundColor: "#f5f5f5",
+        alignSelf:'center',
+        width: 408
     },
     header: {
         fontSize: 24,

@@ -22,7 +22,6 @@ export default class SearchForm extends Component {
       });
 
       this.setState({ users: user });
-      console.log(user);
     });
   }
 
@@ -69,6 +68,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: "#fff",
+    alignSelf: 'center',
+    width: 408
   },
   title: {
     fontSize: 20,

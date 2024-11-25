@@ -14,16 +14,20 @@ export default class Login extends Component {
   }
 
   onSubmit = () => {
-    console.log("Eamil : ", this.state.email)
-    console.log("password :", this.state.password)
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(response => { this.setState({ logedIn: true }) })
       .then(() => { this.props.navigation.navigate("HomeMenu") })
       .catch(error => { this.setState({ error: "Fallo el login" }) })
   }
+
   componentDidMount() {
-    auth.onAuthStateChanged(user => console.log('El usuario es', user))
+    auth.onAuthStateChanged(user => {
+      if (user && !this.state.isRegistering) {
+        this.props.navigation.navigate("HomeMenu")
+      }
+    })
   }
+
   render() {
     return (
       <View style={styles.container}>
